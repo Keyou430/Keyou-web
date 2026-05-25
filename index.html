@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyou Web</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: #1a1a2e;
+      background: #f8f9fa;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 16px 32px;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2563eb;
+      letter-spacing: -0.5px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      margin: 48px 0;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #2563eb;
+      display: inline-block;
+    }
+
+    /* 日记 */
+    .diary-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .diary-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .diary-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .diary-date {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .diary-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .diary-excerpt {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .diary-placeholder {
+      text-align: center;
+      color: #aaa;
+      padding: 32px 0;
+      font-size: 15px;
+    }
+
+    /* 自学 */
+    .learn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .learn-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border-left: 3px solid #2563eb;
+      transition: transform 0.15s ease;
+    }
+
+    .learn-card:hover {
+      transform: translateX(2px);
+    }
+
+    .learn-topic {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .learn-progress {
+      font-size: 13px;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    .learn-bar {
+      height: 4px;
+      background: #e8e8e8;
+      border-radius: 2px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+
+    .learn-bar-fill {
+      height: 100%;
+      background: #2563eb;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .learn-placeholder {
+      text-align: center;
+      color: #aaa;
+      padding: 32px 0;
+      font-size: 15px;
+      grid-column: 1 / -1;
+    }
+
+    /* 交流探讨 */
+    .discuss-desc {
+      font-size: 15px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.15s ease;
+      background: #fff;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .btn {
+      padding: 10px 28px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: #2563eb;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: #aaa;
+      font-size: 13px;
+    }
+
+    @media (max-width: 500px) {
+      header {
+        padding: 14px 20px;
+      }
+      .container {
+        padding: 0 16px;
+      }
+      section {
+        margin: 36px 0;
+      }
+      .learn-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Keyou Web</div>
+  </header>
+
+  <main class="container">
+
+    <!-- 日记 -->
+    <section id="diary">
+      <h2 class="section-title">日记</h2>
+      <div class="diary-list" id="diaryList">
+        <div class="diary-placeholder">还没有日记，开始写第一篇吧 ✍️</div>
+      </div>
+    </section>
+
+    <!-- 自学 -->
+    <section id="learn">
+      <h2 class="section-title">自学</h2>
+      <div class="learn-grid" id="learnGrid">
+        <div class="learn-placeholder">还没有学习记录，添加一个学习主题吧 📚</div>
+      </div>
+    </section>
+
+    <!-- 交流探讨 -->
+    <section id="discuss">
+      <h2 class="section-title">交流探讨</h2>
+      <p class="discuss-desc">有任何想法或建议？欢迎留言，一起交流探讨。</p>
+      <form id="suggestForm">
+        <div class="form-group">
+          <label for="name">昵称</label>
+          <input type="text" id="name" name="name" placeholder="你的昵称（选填）" maxlength="30">
+        </div>
+        <div class="form-group">
+          <label for="topic">主题</label>
+          <input type="text" id="topic" name="topic" placeholder="想聊什么？" maxlength="100" required>
+        </div>
+        <div class="form-group">
+          <label for="content">内容</label>
+          <textarea id="content" name="content" placeholder="说说你的想法或建议…" maxlength="2000" required></textarea>
+        </div>
+        <button type="submit" class="btn">提交建议</button>
+      </form>
+      <div id="suggestions" style="margin-top: 32px;"></div>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Keyou Web
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = 'keyou_web_data';
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : { diaries: [], learns: [], suggestions: [] };
+      } catch {
+        return { diaries: [], learns: [], suggestions: [] };
+      }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function toast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(el._timeout);
+      el._timeout = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    // --- 日记 ---
+    function renderDiaries() {
+      const data = loadData();
+      const list = document.getElementById('diaryList');
+      if (data.diaries.length === 0) {
+        list.innerHTML = '<div class="diary-placeholder">还没有日记，开始写第一篇吧 ✍️</div>';
+        return;
+      }
+      list.innerHTML = data.diaries
+        .slice()
+        .reverse()
+        .map(
+          (d, i) =>
+            `<div class="diary-card">
+              <div class="diary-date">${escapeHtml(d.date)}</div>
+              <div class="diary-title">${escapeHtml(d.title)}</div>
+              <div class="diary-excerpt">${escapeHtml(d.content)}</div>
+            </div>`
+        )
+        .join('');
+    }
+
+    // --- 自学 ---
+    function renderLearns() {
+      const data = loadData();
+      const grid = document.getElementById('learnGrid');
+      if (data.learns.length === 0) {
+        grid.innerHTML = '<div class="learn-placeholder">还没有学习记录，添加一个学习主题吧 📚</div>';
+        return;
+      }
+      grid.innerHTML = data.learns
+        .map(
+          (l) =>
+            `<div class="learn-card">
+              <div class="learn-topic">${escapeHtml(l.topic)}</div>
+              <div class="learn-progress">进度 ${l.progress}%</div>
+              <div class="learn-bar"><div class="learn-bar-fill" style="width:${l.progress}%"></div></div>
+            </div>`
+        )
+        .join('');
+    }
+
+    // --- 交流探讨 ---
+    function renderSuggestions() {
+      const data = loadData();
+      const container = document.getElementById('suggestions');
+      if (data.suggestions.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML =
+        '<h3 style="font-size:17px;margin-bottom:14px;">历史留言</h3>' +
+        data.suggestions
+          .slice()
+          .reverse()
+          .map(
+            (s) =>
+              `<div class="diary-card" style="margin-bottom:12px;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+                  <span style="font-weight:600;">${escapeHtml(s.topic)}</span>
+                  <span style="font-size:12px;color:#aaa;">${escapeHtml(s.name || '匿名')} · ${escapeHtml(s.date)}</span>
+                </div>
+                <div style="font-size:14px;color:#555;">${escapeHtml(s.content)}</div>
+              </div>`
+          )
+          .join('');
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    document.getElementById('suggestForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const topic = document.getElementById('topic').value.trim();
+      const content = document.getElementById('content').value.trim();
+      if (!topic || !content) return;
+
+      const data = loadData();
+      const now = new Date();
+      const dateStr =
+        now.getFullYear() + '-' +
+        String(now.getMonth() + 1).padStart(2, '0') + '-' +
+        String(now.getDate()).padStart(2, '0') + ' ' +
+        String(now.getHours()).padStart(2, '0') + ':' +
+        String(now.getMinutes()).padStart(2, '0');
+
+      data.suggestions.push({ name, topic, content, date: dateStr });
+      saveData(data);
+      renderSuggestions();
+      this.reset();
+      toast('感谢你的建议！');
+    });
+
+    renderDiaries();
+    renderLearns();
+    renderSuggestions();
+  </script>
+</body>
+</html>
