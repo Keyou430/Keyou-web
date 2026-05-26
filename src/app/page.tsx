@@ -1,3 +1,5 @@
+import { projects } from '@/data/projects';
+
 export default function Home() {
   return (
     <>
@@ -29,37 +31,21 @@ export default function Home() {
           精选项目
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {[
-            {
-              title: 'Keyou Web',
-              desc: '个人作品集 + 微博客，以 GitHub Issues 作为后端数据源。纯静态导出，零服务器成本。',
-              tags: ['Next.js', 'TypeScript', 'GitHub API'],
-            },
-            {
-              title: '分布式任务队列',
-              desc: '基于 Rust 和 Redis 的高吞吐任务队列。支持优先级调度、自动重试和死信队列。',
-              tags: ['Rust', 'Redis', 'gRPC'],
-            },
-            {
-              title: 'CLI 工具箱',
-              desc: '命令行工具合集，涵盖代码生成、脚手架和构建工具。Go 编写，Homebrew 分发。',
-              tags: ['Go', 'Cobra', 'GitHub Actions'],
-            },
-            {
-              title: '实时仪表盘',
-              desc: '基于 WebSocket 的毫秒级分析面板。SSE + React + D3 数据可视化。',
-              tags: ['React', 'D3', 'WebSocket'],
-            },
-          ].map((p) => (
-            <div key={p.title} className="glass p-6 group transition-all duration-200 hover:border-white/20">
-              <h3 className="font-mono text-base font-semibold text-foreground">
-                {p.title}
-              </h3>
+          {projects.map((p) => (
+            <div key={p.id} className="glass p-6 group transition-all duration-200 hover:border-white/20">
+              <div className="flex items-center justify-between gap-2">
+                <h3 className="font-mono text-base font-semibold text-foreground">
+                  {p.title}
+                </h3>
+                <span className="font-mono text-[10px] text-dim whitespace-nowrap px-2 py-0.5 rounded-sm bg-white/5 border border-white/5">
+                  {p.category}
+                </span>
+              </div>
               <p className="mt-2 text-sm text-muted leading-relaxed">
-                {p.desc}
+                {p.description}
               </p>
               <div className="mt-4 flex flex-wrap gap-1.5">
-                {p.tags.map((t) => (
+                {p.techStack.map((t) => (
                   <span
                     key={t}
                     className="font-mono text-[11px] px-2 py-0.5 rounded-sm bg-white/5 text-dim border border-white/5"
@@ -67,6 +53,26 @@ export default function Home() {
                     {t}
                   </span>
                 ))}
+              </div>
+              <div className="mt-4 flex gap-3">
+                <a
+                  href={p.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[12px] text-accent hover:underline"
+                >
+                  源代码
+                </a>
+                {p.demoUrl && (
+                  <a
+                    href={p.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-[12px] text-accent hover:underline"
+                  >
+                    在线演示
+                  </a>
+                )}
               </div>
             </div>
           ))}
