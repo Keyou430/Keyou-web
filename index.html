@@ -1,159 +1,296 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Keyou Web</title>
   <style>
+    /* ====== Reset & Base ====== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:        #000000;
+      --surface:   #09090b;
+      --border:    #1a1a1a;
+      --text:      #e4e4e7;
+      --muted:     #a1a1aa;
+      --dim:       #71717a;
+      --green:     #00ff00;
+      --blue:      #007acc;
+      --radius:    6px;
+      --font:      'Geist Mono', 'SF Mono', 'Cascadia Code', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      color: #1a1a2e;
-      background: #f8f9fa;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
     }
 
-    header {
+    /* ====== Scrollbar ====== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #333; }
+
+    /* ====== Navbar ====== */
+    .navbar {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
-      border-bottom: 1px solid #e8e8e8;
-      padding: 14px 32px;
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 56px;
+      background: rgba(0,0,0,0.88); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-    .logo { font-size: 20px; font-weight: 700; color: #2563eb; letter-spacing: -0.5px; }
-    .header-right { display: flex; align-items: center; gap: 12px; }
-    .token-btn {
-      padding: 6px 14px; font-size: 13px; border: 1px solid #ddd; border-radius: 6px;
-      background: #fff; color: #666; cursor: pointer; transition: all 0.15s;
+    .nav-left { display: flex; align-items: center; gap: 12px; }
+    .nav-logo {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      letter-spacing: -0.5px; text-decoration: none;
     }
-    .token-btn:hover { border-color: #2563eb; color: #2563eb; }
-    .token-btn.set { border-color: #22c55e; color: #22c55e; }
+    .nav-logo span { color: var(--green); }
+    .typewriter {
+      font-size: 13px; color: var(--dim); white-space: nowrap;
+    }
+    .cursor {
+      display: inline-block; width: 1px; height: 14px;
+      background: var(--green); margin-left: 2px; vertical-align: text-bottom;
+      animation: blink 0.8s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
 
+    .nav-links {
+      display: flex; align-items: center; gap: 24px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px; color: var(--muted); text-decoration: none;
+      transition: color 0.15s; letter-spacing: 0.3px;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 20px; height: 1.5px;
+      background: var(--text); transition: all 0.2s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 0;
+      position: absolute; top: 56px; left: 0; right: 0;
+      background: rgba(0,0,0,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 8px 24px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 14px; color: var(--muted); text-decoration: none;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--green); }
+
+    /* ====== Layout ====== */
     .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
-    section { margin: 48px 0; }
+    section { margin: 64px 0; }
+
+    .section-label {
+      font-size: 13px; color: var(--green); margin-bottom: 12px;
+      font-weight: 400; letter-spacing: 0.5px;
+    }
+    .section-label::before { content: '# '; color: var(--dim); }
 
     .section-title {
-      font-size: 22px; font-weight: 700; margin-bottom: 20px;
-      padding-bottom: 10px; border-bottom: 2px solid #2563eb; display: inline-block;
+      font-size: 24px; font-weight: 700; margin-bottom: 24px;
+      color: var(--text); letter-spacing: -0.5px;
     }
 
-    /* cards */
+    /* ====== Cards ====== */
     .card {
-      background: #fff; border-radius: 10px; padding: 20px 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      transition: border-color 0.15s;
     }
-    .card-list { display: flex; flex-direction: column; gap: 14px; }
+    .card:hover { border-color: #333; }
+    .card-list { display: flex; flex-direction: column; gap: 12px; }
+    .card-date { font-size: 12px; color: var(--dim); margin-bottom: 6px; }
+    .card-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .card-body { font-size: 14px; color: var(--muted); white-space: pre-wrap; line-height: 1.7; }
 
-    /* diary */
-    .diary-date { font-size: 13px; color: #888; margin-bottom: 4px; }
-    .diary-title { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
-    .diary-body { font-size: 14px; color: #555; white-space: pre-wrap; }
-
-    /* learn */
-    .learn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    /* ====== Learn Grid ====== */
+    .learn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
     .learn-card {
-      background: #fff; border-radius: 10px; padding: 20px 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06); border-left: 3px solid #2563eb;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      border-left: 2px solid var(--blue); transition: border-color 0.15s;
     }
-    .learn-topic { font-size: 16px; font-weight: 600; }
-    .learn-progress { font-size: 13px; color: #888; margin-top: 8px; }
-    .learn-bar { height: 4px; background: #e8e8e8; border-radius: 2px; margin-top: 6px; overflow: hidden; }
-    .learn-bar-fill { height: 100%; background: #2563eb; border-radius: 2px; }
+    .learn-card:hover { border-left-color: var(--green); }
+    .learn-topic { font-size: 15px; font-weight: 600; color: var(--text); }
+    .learn-progress { font-size: 12px; color: var(--dim); margin-top: 10px; }
+    .learn-bar { height: 3px; background: #1a1a1a; border-radius: 1.5px; margin-top: 6px; overflow: hidden; }
+    .learn-bar-fill { height: 100%; background: var(--blue); border-radius: 1.5px; transition: width 0.4s ease; }
+    .learn-note { font-size: 12px; color: var(--dim); margin-top: 10px; line-height: 1.6; }
 
-    /* suggest */
-    .suggest-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-    .suggest-topic { font-weight: 600; }
-    .suggest-author { font-size: 12px; color: #aaa; }
-    .suggest-body { font-size: 14px; color: #555; white-space: pre-wrap; }
+    /* ====== Suggest ====== */
+    .suggest-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; flex-wrap: wrap; gap: 4px; }
+    .suggest-topic { font-weight: 600; color: var(--text); }
+    .suggest-author { font-size: 11px; color: var(--dim); }
 
-    .placeholder {
-      text-align: center; color: #aaa; padding: 32px 0; font-size: 15px; grid-column: 1 / -1;
-    }
-
-    /* add button */
+    /* ====== Buttons ====== */
     .add-btn {
       display: inline-block; margin-bottom: 16px;
-      padding: 8px 20px; font-size: 14px; font-weight: 600;
-      color: #2563eb; background: #fff; border: 2px dashed #2563eb;
-      border-radius: 8px; cursor: pointer; transition: all 0.15s;
+      padding: 7px 18px; font-size: 13px; font-weight: 600; font-family: var(--font);
+      color: var(--green); background: transparent;
+      border: 1px solid var(--green); border-radius: var(--radius);
+      cursor: pointer; transition: all 0.15s; letter-spacing: 0.3px;
     }
-    .add-btn:hover { background: #eef4ff; }
+    .add-btn:hover { background: rgba(0,255,0,0.06); }
+    .add-btn::before { content: '+ '; }
 
-    /* form card */
+    .btn {
+      padding: 9px 24px; font-size: 14px; font-weight: 600; font-family: var(--font);
+      color: #000; background: var(--green); border: none; border-radius: var(--radius);
+      cursor: pointer; transition: all 0.15s; letter-spacing: 0.3px;
+    }
+    .btn:hover { filter: brightness(1.1); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-cancel {
+      background: transparent; color: var(--muted); border: 1px solid var(--border);
+    }
+    .btn-cancel:hover { border-color: #444; color: var(--text); filter: none; }
+
+    /* ====== Forms ====== */
     .form-card {
-      background: #fff; border-radius: 10px; padding: 20px 24px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06); margin-bottom: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px; margin-bottom: 16px;
       display: none;
     }
     .form-card.open { display: block; }
-
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 5px; color: #333; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px;
-      font-size: 14px; font-family: inherit; transition: border-color 0.15s; background: #fff;
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 600; color: var(--muted);
+      margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      outline: none; border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    .form-group input,
+    .form-group textarea {
+      width: 100%; padding: 10px 14px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+      font-size: 14px; font-family: var(--font); color: var(--text);
+      transition: border-color 0.15s; resize: vertical;
     }
-    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none; border-color: var(--green);
+      box-shadow: 0 0 0 2px rgba(0,255,0,0.1);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #333; }
+    .form-group textarea { min-height: 100px; }
     .form-row { display: flex; gap: 12px; }
-    .form-actions { display: flex; gap: 10px; }
+    .form-actions { display: flex; align-items: center; gap: 10px; }
 
-    .btn {
-      padding: 10px 28px; font-size: 15px; font-weight: 600; color: #fff;
-      background: #2563eb; border: none; border-radius: 8px; cursor: pointer; transition: background 0.15s;
+    /* ====== Token Button ====== */
+    .token-btn {
+      padding: 5px 12px; font-size: 11px; font-family: var(--font);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      background: transparent; color: var(--dim); cursor: pointer;
+      transition: all 0.15s;
     }
-    .btn:hover { background: #1d4ed8; }
-    .btn:disabled { background: #93b4f5; cursor: not-allowed; }
-    .btn-cancel { background: #f1f5f9; color: #555; }
-    .btn-cancel:hover { background: #e2e8f0; }
+    .token-btn:hover { border-color: #444; color: var(--muted); }
+    .token-btn.set { border-color: var(--green); color: var(--green); }
 
-    .spinner { display: none; width: 20px; height: 20px; border: 2px solid #ddd; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.6s linear infinite; margin-left: 8px; vertical-align: middle; }
+    /* ====== Spinner ====== */
+    .spinner {
+      display: none; width: 18px; height: 18px;
+      border: 2px solid #333; border-top-color: var(--green); border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
     .spinner.show { display: inline-block; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ====== Toast ====== */
     .toast {
       position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
-      background: #1a1a2e; color: #fff; padding: 10px 24px; border-radius: 8px;
-      font-size: 14px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999;
+      background: var(--surface); color: var(--text); border: 1px solid var(--border);
+      padding: 10px 24px; border-radius: var(--radius);
+      font-size: 13px; font-family: var(--font);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999;
     }
-    .toast.show { opacity: 1; }
+    .toast.show { opacity: 1; pointer-events: auto; }
 
-    footer { text-align: center; padding: 40px 24px; color: #aaa; font-size: 13px; }
+    /* ====== Placeholder ====== */
+    .placeholder {
+      text-align: center; color: var(--dim); padding: 40px 0;
+      font-size: 14px; grid-column: 1 / -1;
+    }
 
-    @media (max-width: 500px) {
-      header { padding: 12px 16px; }
-      .container { padding: 0 14px; }
-      section { margin: 32px 0; }
+    /* ====== Footer ====== */
+    footer {
+      text-align: center; padding: 48px 24px;
+      font-size: 12px; color: var(--dim); border-top: 1px solid var(--border);
+    }
+    footer::before { content: '/* '; color: var(--dim); }
+    footer::after { content: ' */'; color: var(--dim); }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .container { padding: 0 16px; }
+      section { margin: 48px 0; }
+      .section-title { font-size: 20px; }
       .learn-grid { grid-template-columns: 1fr; }
+      .typewriter { display: none; }
+      .form-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Keyou Web</div>
-    <div class="header-right">
-      <span id="syncStatus" style="font-size:12px;color:#aaa;"></span>
-      <button class="token-btn" id="tokenBtn" onclick="toggleTokenSetup()">设置 Token</button>
-    </div>
-  </header>
 
+  <!-- ====== Navbar ====== -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="#" class="nav-logo"><span>&gt;</span> Keyou Web</a>
+      <span class="typewriter"><span id="typewriterText"></span><span class="cursor"></span></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#diary">/diary</a></li>
+      <li><a href="#learn">/learn</a></li>
+      <li><a href="#discuss">/discuss</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ====== Mobile Menu ====== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#diary" onclick="toggleMenu()">/diary</a>
+    <a href="#learn" onclick="toggleMenu()">/learn</a>
+    <a href="#discuss" onclick="toggleMenu()">/discuss</a>
+  </div>
+
+  <!-- ====== Main ====== -->
   <main class="container">
 
     <!-- 日记 -->
     <section id="diary">
+      <p class="section-label">diary</p>
       <h2 class="section-title">日记</h2>
-      <button class="add-btn" onclick="toggleForm('diaryForm')">+ 写日记</button>
+      <button class="add-btn" onclick="toggleForm('diaryForm')">写日记</button>
       <div class="form-card" id="diaryForm">
         <div class="form-group">
-          <label for="diaryTitle">标题</label>
+          <label>标题</label>
           <input type="text" id="diaryTitle" placeholder="今天想写什么？" maxlength="100">
         </div>
         <div class="form-group">
-          <label for="diaryContent">内容</label>
+          <label>内容</label>
           <textarea id="diaryContent" placeholder="记录今天的想法…" maxlength="5000"></textarea>
         </div>
         <div class="form-actions">
@@ -167,21 +304,22 @@
 
     <!-- 自学 -->
     <section id="learn">
+      <p class="section-label">learn</p>
       <h2 class="section-title">自学</h2>
-      <button class="add-btn" onclick="toggleForm('learnForm')">+ 添加主题</button>
+      <button class="add-btn" onclick="toggleForm('learnForm')">添加主题</button>
       <div class="form-card" id="learnForm">
         <div class="form-group">
-          <label for="learnTopic">学习主题</label>
+          <label>学习主题</label>
           <input type="text" id="learnTopic" placeholder="在学什么？" maxlength="100">
         </div>
         <div class="form-row">
           <div class="form-group" style="flex:1;">
-            <label for="learnProgress">进度 (%)</label>
-            <input type="number" id="learnProgress" value="0" min="0" max="100" style="width:100%;">
+            <label>进度 (%)</label>
+            <input type="number" id="learnProgress" value="0" min="0" max="100">
           </div>
         </div>
         <div class="form-group">
-          <label for="learnNote">备注（选填）</label>
+          <label>备注（选填）</label>
           <textarea id="learnNote" placeholder="笔记、资源链接…" maxlength="2000"></textarea>
         </div>
         <div class="form-actions">
@@ -195,20 +333,21 @@
 
     <!-- 交流探讨 -->
     <section id="discuss">
+      <p class="section-label">discuss</p>
       <h2 class="section-title">交流探讨</h2>
-      <p style="color:#666;font-size:15px;margin-bottom:16px;">有任何想法或建议？欢迎留言。</p>
-      <button class="add-btn" onclick="toggleForm('suggestForm')">+ 提交建议</button>
+      <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">有任何想法或建议？欢迎留言。</p>
+      <button class="add-btn" onclick="toggleForm('suggestForm')">提交建议</button>
       <div class="form-card" id="suggestForm">
         <div class="form-group">
-          <label for="suggestName">昵称（选填）</label>
+          <label>昵称（选填）</label>
           <input type="text" id="suggestName" placeholder="你的昵称" maxlength="30">
         </div>
         <div class="form-group">
-          <label for="suggestTopic">主题</label>
+          <label>主题</label>
           <input type="text" id="suggestTopic" placeholder="想聊什么？" maxlength="100">
         </div>
         <div class="form-group">
-          <label for="suggestContent">内容</label>
+          <label>内容</label>
           <textarea id="suggestContent" placeholder="说说你的想法或建议…" maxlength="2000"></textarea>
         </div>
         <div class="form-actions">
@@ -223,9 +362,41 @@
   </main>
 
   <footer>&copy; 2026 Keyou Web</footer>
+
   <div class="toast" id="toast"></div>
 
   <script>
+    // ====== Typewriter ======
+    (function() {
+      const words = ['portfolio', 'projects', 'blog', 'code', 'diary'];
+      const el = document.getElementById('typewriterText');
+      let wordIdx = 0, charIdx = 0, deleting = false;
+      const typeSpeed = 100, deleteSpeed = 50, pauseTime = 2000;
+
+      function tick() {
+        const word = words[wordIdx];
+        if (!deleting) {
+          charIdx++;
+          el.textContent = word.slice(0, charIdx);
+          if (charIdx === word.length) { deleting = true; setTimeout(tick, pauseTime); return; }
+          setTimeout(tick, typeSpeed);
+        } else {
+          charIdx--;
+          el.textContent = word.slice(0, charIdx);
+          if (charIdx === 0) { deleting = false; wordIdx = (wordIdx + 1) % words.length; setTimeout(tick, 300); return; }
+          setTimeout(tick, deleteSpeed);
+        }
+      }
+      tick();
+    })();
+
+    // ====== Mobile Menu ======
+    function toggleMenu() {
+      document.getElementById('hamburger').classList.toggle('open');
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // ====== GitHub Issues Integration ======
     const REPO = 'Keyou430/Keyou-web';
     const API = 'https://api.github.com';
 
@@ -234,21 +405,23 @@
 
     function updateTokenBtn() {
       const btn = document.getElementById('tokenBtn');
-      if (getToken()) { btn.textContent = 'Token ✓'; btn.className = 'token-btn set'; }
-      else { btn.textContent = '设置 Token'; btn.className = 'token-btn'; }
+      if (!btn) return;
+      if (getToken()) { btn.textContent = 'Token [OK]'; btn.className = 'token-btn set'; }
+      else { btn.textContent = 'Token [?]'; btn.className = 'token-btn'; }
     }
 
     function toggleTokenSetup() {
       if (getToken()) {
-        if (confirm('当前已有 Token，要更换或删除吗？\n\n确定=更换 取消=保持不变')) {
-          const t = prompt('请输入 GitHub Personal Access Token（需要 repo/public_repo 权限）：');
+        if (confirm('当前已有 Token，更换或删除？\n\nOK = 更换\nCancel = 不变')) {
+          const t = prompt('GitHub Personal Access Token（需 public_repo 权限）：');
           if (t !== null) setToken(t.trim());
         }
       } else {
         const t = prompt(
-          '请输入 GitHub Personal Access Token（需要 repo/public_repo 权限）：\n\n' +
-          '获取方式：github.com → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token → 勾选 public_repo → 生成后复制到这里\n\n' +
-          '公开仓库只需 public_repo 权限。Token 仅存储在本地浏览器。'
+          'GitHub Personal Access Token（需 public_repo 权限）：\n\n' +
+          'Settings → Developer settings → Tokens (classic)\n' +
+          '→ Generate new token → 勾选 public_repo\n\n' +
+          'Token 仅存储在本地浏览器。'
         );
         if (t !== null) setToken(t.trim());
       }
@@ -281,7 +454,7 @@
       el.classList.toggle('open');
     }
 
-    // --- API ---
+    // ====== API ======
     async function ghGet(path) {
       const headers = { 'Accept': 'application/vnd.github+json' };
       const token = getToken();
@@ -293,7 +466,7 @@
 
     async function ghPost(path, body) {
       const token = getToken();
-      if (!token) { toast('请先设置 GitHub Token'); toggleTokenSetup(); throw new Error('no token'); }
+      if (!token) { toast('请先设置 Token'); toggleTokenSetup(); throw new Error('no token'); }
       const res = await fetch(API + path, {
         method: 'POST',
         headers: {
@@ -310,25 +483,25 @@
       return res.json();
     }
 
-    // --- 日记 ---
+    // ====== Diary ======
     async function loadDiaries() {
       const list = document.getElementById('diaryList');
       list.innerHTML = '<div class="placeholder">加载中…</div>';
       try {
         const issues = await ghGet('/repos/' + REPO + '/issues?labels=diary&state=open&sort=created&direction=desc&per_page=50');
         if (issues.length === 0) {
-          list.innerHTML = '<div class="placeholder">还没有日记，开始写第一篇吧</div>';
+          list.innerHTML = '<div class="placeholder">~ empty ~</div>';
         } else {
           list.innerHTML = issues.map(i => `
             <div class="card">
-              <div class="diary-date">${formatDate(i.created_at)}</div>
-              <div class="diary-title">${escapeHtml(i.title)}</div>
-              <div class="diary-body">${escapeHtml(i.body || '')}</div>
+              <div class="card-date">${formatDate(i.created_at)}</div>
+              <div class="card-title">${escapeHtml(i.title)}</div>
+              <div class="card-body">${escapeHtml(i.body || '')}</div>
             </div>
           `).join('');
         }
       } catch (e) {
-        list.innerHTML = '<div class="placeholder">加载失败：' + escapeHtml(e.message) + '</div>';
+        list.innerHTML = '<div class="placeholder">加载失败: ' + escapeHtml(e.message) + '</div>';
       }
     }
 
@@ -336,7 +509,6 @@
       const title = document.getElementById('diaryTitle').value.trim();
       const content = document.getElementById('diaryContent').value.trim();
       if (!title || !content) { toast('请填写标题和内容'); return; }
-
       const btn = document.getElementById('diarySubmit');
       const spinner = document.getElementById('diarySpinner');
       btn.disabled = true; spinner.classList.add('show');
@@ -348,20 +520,20 @@
         toast('日记已发布');
         loadDiaries();
       } catch (e) {
-        toast('发布失败：' + e.message);
+        toast('发布失败: ' + e.message);
       } finally {
         btn.disabled = false; spinner.classList.remove('show');
       }
     }
 
-    // --- 自学 ---
+    // ====== Learn ======
     async function loadLearns() {
       const grid = document.getElementById('learnGrid');
       grid.innerHTML = '<div class="placeholder">加载中…</div>';
       try {
         const issues = await ghGet('/repos/' + REPO + '/issues?labels=learn&state=open&sort=created&direction=desc&per_page=50');
         if (issues.length === 0) {
-          grid.innerHTML = '<div class="placeholder">还没有学习记录，添加一个吧</div>';
+          grid.innerHTML = '<div class="placeholder">~ empty ~</div>';
         } else {
           grid.innerHTML = issues.map(i => {
             const body = i.body || '0';
@@ -370,15 +542,15 @@
             return `
               <div class="learn-card">
                 <div class="learn-topic">${escapeHtml(i.title)}</div>
-                <div class="learn-progress">进度 ${progress}%</div>
+                <div class="learn-progress">${progress}%</div>
                 <div class="learn-bar"><div class="learn-bar-fill" style="width:${progress}%"></div></div>
-                ${note ? '<div style="font-size:13px;color:#888;margin-top:8px;">' + escapeHtml(note) + '</div>' : ''}
+                ${note ? '<div class="learn-note">' + escapeHtml(note) + '</div>' : ''}
               </div>
             `;
           }).join('');
         }
       } catch (e) {
-        grid.innerHTML = '<div class="placeholder">加载失败：' + escapeHtml(e.message) + '</div>';
+        grid.innerHTML = '<div class="placeholder">加载失败: ' + escapeHtml(e.message) + '</div>';
       }
     }
 
@@ -387,7 +559,6 @@
       const progress = document.getElementById('learnProgress').value;
       const note = document.getElementById('learnNote').value.trim();
       if (!topic) { toast('请填写学习主题'); return; }
-
       const body = (progress || '0') + '\n' + note;
       const btn = document.getElementById('learnSubmit');
       const spinner = document.getElementById('learnSpinner');
@@ -401,13 +572,13 @@
         toast('学习主题已添加');
         loadLearns();
       } catch (e) {
-        toast('添加失败：' + e.message);
+        toast('添加失败: ' + e.message);
       } finally {
         btn.disabled = false; spinner.classList.remove('show');
       }
     }
 
-    // --- 交流探讨 ---
+    // ====== Suggestions ======
     async function loadSuggestions() {
       const container = document.getElementById('suggestions');
       container.innerHTML = '<div class="placeholder">加载中…</div>';
@@ -431,13 +602,13 @@
                   <span class="suggest-topic">${escapeHtml(i.title)}</span>
                   <span class="suggest-author">${escapeHtml(author)} · ${formatDate(i.created_at)}</span>
                 </div>
-                <div class="suggest-body">${escapeHtml(content)}</div>
+                <div class="card-body">${escapeHtml(content)}</div>
               </div>
             `;
           }).join('');
         }
       } catch (e) {
-        container.innerHTML = '<div class="placeholder">加载失败：' + escapeHtml(e.message) + '</div>';
+        container.innerHTML = '<div class="placeholder">加载失败: ' + escapeHtml(e.message) + '</div>';
       }
     }
 
@@ -446,7 +617,6 @@
       const topic = document.getElementById('suggestTopic').value.trim();
       const content = document.getElementById('suggestContent').value.trim();
       if (!topic || !content) { toast('请填写主题和内容'); return; }
-
       const body = 'By: ' + (name || '匿名') + '\n' + content;
       const btn = document.getElementById('suggestSubmit');
       const spinner = document.getElementById('suggestSpinner');
@@ -457,16 +627,16 @@
         document.getElementById('suggestTopic').value = '';
         document.getElementById('suggestContent').value = '';
         toggleForm('suggestForm');
-        toast('感谢你的建议！');
+        toast('感谢你的建议');
         loadSuggestions();
       } catch (e) {
-        toast('提交失败：' + e.message);
+        toast('提交失败: ' + e.message);
       } finally {
         btn.disabled = false; spinner.classList.remove('show');
       }
     }
 
-    // --- init ---
+    // ====== Init ======
     updateTokenBtn();
     loadDiaries();
     loadLearns();
