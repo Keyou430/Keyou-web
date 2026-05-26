@@ -3,12 +3,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
-const WORD_LIST = ['portfolio', 'projects', 'blog', 'code', 'engineering'];
+const WORD_LIST = ['作品', '博客', '笔记', '开源', '工程'];
 
 const NAV_ITEMS = [
-  { href: '/#projects', label: '/projects' },
-  { href: '/#stack', label: '/stack' },
-  { href: '/#contact', label: '/contact' },
+  { href: '/#projects', label: '/作品' },
+  { href: '/#stack', label: '/技术栈' },
+  { href: '/#contact', label: '/联系' },
 ];
 
 export default function Navbar() {

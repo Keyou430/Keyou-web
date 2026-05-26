@@ -3,52 +3,51 @@ export default function Home() {
     <>
       {/* ====== Hero ====== */}
       <section className="relative-z flex min-h-[70vh] flex-col justify-center pt-16 pb-12 animate-fade-in">
-        <p className="section-label">intro</p>
+        <p className="section-label">关于</p>
         <h1 className="font-mono text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          <span className="text-gradient">Hi, I&apos;m </span>
+          <span className="text-gradient">你好，我是 </span>
           <span className="text-gradient-accent">Keyou</span>
         </h1>
         <p className="mt-6 max-w-xl font-mono text-base text-muted leading-relaxed sm:text-lg">
-          Full-stack developer. I build performant, type-safe software with
-          modern web technologies. Currently focused on Rust, TypeScript, and
-          distributed systems.
+          全栈开发者。用现代 Web 技术构建高性能、类型安全的软件。
+          目前专注于 Rust、TypeScript 和分布式系统。
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#projects" className="btn-glow">
-            View Projects
+            查看作品
           </a>
           <a href="#contact" className="btn-ghost">
-            Get in Touch
+            联系我
           </a>
         </div>
       </section>
 
       {/* ====== Projects ====== */}
       <section id="projects" className="relative-z py-20 animate-slide-up">
-        <p className="section-label">projects</p>
+        <p className="section-label">作品</p>
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
-          Selected Work
+          精选项目
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
           {[
             {
               title: 'Keyou Web',
-              desc: 'Personal portfolio + micro-blog powered by GitHub Issues as a headless CMS. Static export, zero hosting cost.',
+              desc: '个人作品集 + 微博客，以 GitHub Issues 作为后端数据源。纯静态导出，零服务器成本。',
               tags: ['Next.js', 'TypeScript', 'GitHub API'],
             },
             {
-              title: 'Distributed Task Queue',
-              desc: 'High-throughput task queue built with Rust and Redis. Supports priority scheduling, retries, and dead-letter queues.',
+              title: '分布式任务队列',
+              desc: '基于 Rust 和 Redis 的高吞吐任务队列。支持优先级调度、自动重试和死信队列。',
               tags: ['Rust', 'Redis', 'gRPC'],
             },
             {
-              title: 'CLI Toolkit',
-              desc: 'Monorepo of command-line utilities for codegen, scaffolding, and build tooling. Written in Go, distributed via Homebrew.',
+              title: 'CLI 工具箱',
+              desc: '命令行工具合集，涵盖代码生成、脚手架和构建工具。Go 编写，Homebrew 分发。',
               tags: ['Go', 'Cobra', 'GitHub Actions'],
             },
             {
-              title: 'Real-time Dashboard',
-              desc: 'WebSocket-powered analytics dashboard with sub-100ms latency. Server-sent events + React + D3 visualizations.',
+              title: '实时仪表盘',
+              desc: '基于 WebSocket 的毫秒级分析面板。SSE + React + D3 数据可视化。',
               tags: ['React', 'D3', 'WebSocket'],
             },
           ].map((p) => (
@@ -76,24 +75,24 @@ export default function Home() {
 
       {/* ====== Tech Stack ====== */}
       <section id="stack" className="relative-z py-20 animate-slide-up">
-        <p className="section-label">stack</p>
+        <p className="section-label">技术栈</p>
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
-          Tech Stack
+          技术栈
         </h2>
         <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {[
-            { name: 'TypeScript', level: 'Primary' },
-            { name: 'Rust', level: 'Learning' },
-            { name: 'Go', level: 'Proficient' },
-            { name: 'React / Next.js', level: 'Primary' },
-            { name: 'Node.js', level: 'Primary' },
-            { name: 'PostgreSQL', level: 'Proficient' },
-            { name: 'Redis', level: 'Proficient' },
-            { name: 'Docker', level: 'Everyday' },
-            { name: 'Kubernetes', level: 'Learning' },
-            { name: 'GraphQL', level: 'Proficient' },
-            { name: 'Tailwind CSS', level: 'Everyday' },
-            { name: 'Git / CI/CD', level: 'Everyday' },
+            { name: 'TypeScript', level: '主力' },
+            { name: 'Rust', level: '学习中' },
+            { name: 'Go', level: '熟练' },
+            { name: 'React / Next.js', level: '主力' },
+            { name: 'Node.js', level: '主力' },
+            { name: 'PostgreSQL', level: '熟练' },
+            { name: 'Redis', level: '熟练' },
+            { name: 'Docker', level: '日常' },
+            { name: 'Kubernetes', level: '学习中' },
+            { name: 'GraphQL', level: '熟练' },
+            { name: 'Tailwind CSS', level: '日常' },
+            { name: 'Git / CI/CD', level: '日常' },
           ].map((tech) => (
             <div
               key={tech.name}
@@ -112,13 +111,12 @@ export default function Home() {
 
       {/* ====== Contact ====== */}
       <section id="contact" className="relative-z py-20 animate-slide-up">
-        <p className="section-label">contact</p>
+        <p className="section-label">联系</p>
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
-          Get in Touch
+          联系我
         </h2>
         <p className="mt-4 max-w-lg text-sm text-muted leading-relaxed">
-          Always open to interesting conversations. Reach out via email or find
-          me on GitHub.
+          欢迎交流，可以通过邮件或 GitHub 联系我。
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
           <a href="mailto:keyou@ccwu.cc" className="btn-glow text-sm">

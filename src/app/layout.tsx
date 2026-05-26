@@ -4,7 +4,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Keyou Web',
-  description: 'Personal tech portfolio — engineering, projects, and notes.',
+  description: 'Keyou 的个人技术作品集 — 工程、项目与笔记。',
 };
 
 export default function RootLayout({
