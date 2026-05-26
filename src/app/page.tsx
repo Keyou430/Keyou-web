@@ -1,4 +1,13 @@
 import { projects } from '@/data/projects';
+import ProjectCard from '@/components/ProjectCard';
+
+function getGridSpan(id: string): string {
+  if (id === 'keyou-web') return 'lg:col-span-2';
+  return 'lg:col-span-1';
+}
+function isFeatured(id: string): boolean {
+  return id === 'keyou-web';
+}
 
 export default function Home() {
   return (
@@ -24,56 +33,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ====== Projects ====== */}
-      <section id="projects" className="relative-z py-20 animate-slide-up">
+      {/* ====== Projects (Bento Grid) ====== */}
+      <section id="projects" className="relative-z py-20">
         <p className="section-label">作品</p>
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
           精选项目
         </h2>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p) => (
-            <div key={p.id} className="glass p-6 group transition-all duration-200 hover:border-white/20">
-              <div className="flex items-center justify-between gap-2">
-                <h3 className="font-mono text-base font-semibold text-foreground">
-                  {p.title}
-                </h3>
-                <span className="font-mono text-[10px] text-dim whitespace-nowrap px-2 py-0.5 rounded-sm bg-white/5 border border-white/5">
-                  {p.category}
-                </span>
-              </div>
-              <p className="mt-2 text-sm text-muted leading-relaxed">
-                {p.description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {p.techStack.map((t) => (
-                  <span
-                    key={t}
-                    className="font-mono text-[11px] px-2 py-0.5 rounded-sm bg-white/5 text-dim border border-white/5"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-4 flex gap-3">
-                <a
-                  href={p.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-[12px] text-accent hover:underline"
-                >
-                  源代码
-                </a>
-                {p.demoUrl && (
-                  <a
-                    href={p.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-mono text-[12px] text-accent hover:underline"
-                  >
-                    在线演示
-                  </a>
-                )}
-              </div>
+            <div key={p.id} className={getGridSpan(p.id)}>
+              <ProjectCard project={p} featured={isFeatured(p.id)} />
             </div>
           ))}
         </div>
