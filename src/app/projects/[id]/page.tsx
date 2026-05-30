@@ -72,14 +72,16 @@ export default async function ProjectDetail({ params }: Props) {
 
         {/* Action buttons */}
         <div className="mt-6 flex flex-wrap gap-3">
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-glow text-sm"
-          >
-            查看源码
-          </a>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-glow text-sm"
+            >
+              查看源码
+            </a>
+          )}
           {project.demoUrl && (
             <a
               href={project.demoUrl}

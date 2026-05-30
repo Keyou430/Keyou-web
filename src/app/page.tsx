@@ -9,11 +9,14 @@ export default function Home() {
         <p className="section-label">关于</p>
         <h1 className="font-mono text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
           <span className="text-gradient">你好，我是 </span>
-          <span className="text-gradient-accent">Keyou</span>
+          <span className="text-gradient-accent">陈源富</span>
         </h1>
         <p className="mt-6 max-w-xl font-mono text-base text-muted leading-relaxed sm:text-lg">
-          全栈开发者。用现代 Web 技术构建高性能、类型安全的软件。
-          目前专注于 Rust、TypeScript 和分布式系统。
+          电子信息工程在读，专注于嵌入式系统与硬件开发。
+          同时实践 Vibe Coding，探索 AI 驱动的软件开发。
+        </p>
+        <p className="mt-3 max-w-xl font-mono text-sm text-dim leading-relaxed">
+          曾担任课程助教和一对一辅导老师，具备良好的沟通表达与团队协作能力。
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#projects" className="btn-glow">
@@ -29,7 +32,7 @@ export default function Home() {
       <section id="projects" className="relative-z py-20">
         <p className="section-label">作品</p>
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
-          精选项目
+          项目经历
         </h2>
         <div className="mt-10 flex flex-col gap-4">
           {projects.map((p) => (
@@ -42,22 +45,22 @@ export default function Home() {
       <section id="stack" className="relative-z py-20 animate-slide-up">
         <p className="section-label">技术栈</p>
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
-          技术栈
+          专业技能
         </h2>
         <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {[
-            { name: 'TypeScript', level: '主力' },
-            { name: 'Rust', level: '学习中' },
-            { name: 'Go', level: '熟练' },
-            { name: 'React / Next.js', level: '主力' },
-            { name: 'Node.js', level: '主力' },
-            { name: 'PostgreSQL', level: '熟练' },
-            { name: 'Redis', level: '熟练' },
-            { name: 'Docker', level: '日常' },
-            { name: 'Kubernetes', level: '学习中' },
-            { name: 'GraphQL', level: '熟练' },
-            { name: 'Tailwind CSS', level: '日常' },
-            { name: 'Git / CI/CD', level: '日常' },
+            { name: '51 单片机', level: '熟练' },
+            { name: 'STM32', level: '熟练' },
+            { name: 'C 语言', level: '主力' },
+            { name: 'EDA 原理图设计', level: '熟练' },
+            { name: 'NI Multisim', level: '日常' },
+            { name: '立创 EDA', level: '日常' },
+            { name: '硬件焊接', level: '日常' },
+            { name: '示波器 / 万用表', level: '日常' },
+            { name: 'Keil MDK', level: '主力' },
+            { name: 'Python', level: '基础' },
+            { name: 'Matlab', level: '基础' },
+            { name: 'Vibe Coding', level: '实践' },
           ].map((tech) => (
             <div
               key={tech.name}
