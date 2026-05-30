@@ -1,14 +1,6 @@
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
 
-function getGridSpan(id: string): string {
-  if (id === 'keyou-web') return 'lg:col-span-2';
-  return 'lg:col-span-1';
-}
-function isFeatured(id: string): boolean {
-  return id === 'keyou-web';
-}
-
 export default function Home() {
   return (
     <>
@@ -33,17 +25,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ====== Projects (Bento Grid) ====== */}
+      {/* ====== Projects (Large Cards) ====== */}
       <section id="projects" className="relative-z py-20">
         <p className="section-label">作品</p>
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
           精选项目
         </h2>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 flex flex-col gap-4">
           {projects.map((p) => (
-            <div key={p.id} className={getGridSpan(p.id)}>
-              <ProjectCard project={p} featured={isFeatured(p.id)} />
-            </div>
+            <ProjectCard key={p.id} project={p} />
           ))}
         </div>
       </section>
