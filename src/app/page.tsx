@@ -84,8 +84,8 @@ export default function Home() {
           欢迎交流，可以通过邮件或 GitHub 联系我。
         </p>
         <div className="mt-6 flex flex-wrap gap-4">
-          <a href="mailto:keyou@ccwu.cc" className="btn-glow text-sm">
-            keyou@ccwu.cc
+          <a href="mailto:2160151721@qq.com" className="btn-glow text-sm">
+            2160151721@qq.com
           </a>
           <a
             href="https://github.com/Keyou430"
