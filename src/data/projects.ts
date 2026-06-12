@@ -77,6 +77,28 @@ export const projects: Project[] = [
   },
   // ====== 软件项目 ======
   {
+    id: 'feishu-maintenance-system',
+    title: '飞书设备维修管理系统',
+    description:
+      '基于飞书开放平台的设备维修工单管理系统。员工通过 Web 页面或飞书审批流提交报修，系统自动创建工单并发送群消息卡片通知，维修人员通过卡片按钮一键接单、标记完成，全流程在飞书内闭环。',
+    longDescription:
+      '一个面向企业内部的设备维修工单管理系统，深度集成飞书开放平台，实现从报修到维修完成的全流程自动化。\n\n' +
+      '核心功能包括：Web 表单报修与飞书审批流双入口、自动生成工单编号（WX-YYYYMMDD-001）、飞书消息卡片实时通知（支持按优先级显示不同颜色）、维修人员一键接单与标记完成、多维表格数据存储、30 秒轮询自动发现新工单。\n\n' +
+      '技术实现上，使用 Express 构建 RESTful API，通过飞书官方 Node SDK 操作多维表格和发送消息卡片，利用飞书 Webhook 实现审批流回调和卡片按钮交互回调，采用防重复提交机制和先响应后处理策略优化用户体验。\n\n' +
+      '项目采用 Vibe Coding 方式开发，从需求分析到部署上线全程借助 AI 辅助完成。',
+    category: 'Full-Stack Development',
+    techStack: ['Node.js', 'Express', '飞书 SDK', '多维表格 API', 'Webhook', 'Vibe Coding'],
+    status: 'completed',
+    highlights: [
+      'Web 报修 + 飞书审批流双入口，全流程飞书内闭环',
+      '飞书消息卡片通知，按优先级（紧急/高/中/低）显示不同颜色',
+      '维修人员通过卡片按钮一键接单、标记完成',
+      '自动轮询多维表格发现新工单，防重复通知机制',
+      'Webhook 审批回调 + 卡片交互回调，先响应后处理优化体验',
+    ],
+    githubUrl: 'https://github.com/Keyou430/feishu-maintenance-system',
+  },
+  {
     id: 'keyou-web',
     title: 'Keyou Web',
     description:

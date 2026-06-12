@@ -58,6 +58,8 @@ export default function Home() {
             { name: '硬件焊接', level: '日常' },
             { name: '示波器 / 万用表', level: '日常' },
             { name: 'Keil MDK', level: '主力' },
+            { name: 'Node.js', level: '实践' },
+            { name: 'Express', level: '实践' },
             { name: 'Python', level: '基础' },
             { name: 'Matlab', level: '基础' },
             { name: 'Vibe Coding', level: '实践' },
