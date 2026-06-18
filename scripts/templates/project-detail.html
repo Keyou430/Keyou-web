@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} — Keyou Web</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --surface: #141416;
+      --border: rgba(255, 255, 255, 0.06);
+      --text: #e8e8ed;
+      --text-muted: #8a8a95;
+      --text-dim: #5a5a65;
+      --accent: #6366f1;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    .container { max-width: 768px; margin: 0 auto; padding: 4rem 1.5rem; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-size: 13px; color: var(--text-muted); text-decoration: none;
+      margin-bottom: 2.5rem; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .category { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+    h1 { font-size: 2rem; font-weight: 700; margin: 1rem 0; }
+    .description { color: var(--text-muted); font-size: 15px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+    h2 { font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-size: 12px; padding: 0.25rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 4px;
+      color: var(--text-muted); background: rgba(255,255,255,0.02);
+    }
+    .highlights { list-style: none; }
+    .highlights li {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 14px; color: var(--text-muted); margin-bottom: 0.75rem;
+    }
+    .highlights li::before {
+      content: ''; display: block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--accent); margin-top: 0.5rem; flex-shrink: 0;
+    }
+    .long-desc { font-size: 14px; color: var(--text-muted); }
+    .long-desc p { margin-bottom: 1rem; }
+    .btn {
+      display: inline-block; padding: 0.5rem 1.25rem; font-size: 13px;
+      font-family: inherit; border-radius: 6px; text-decoration: none;
+      transition: all 0.2s; margin-right: 0.75rem;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text-muted); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .actions { display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="https://web.keyou.ccwu.cc/#projects" class="back-link">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+      </svg>
+      返回首页
+    </a>
+
+    <header>
+      <span class="category">{{CATEGORY}}</span>
+      <h1>{{TITLE}}</h1>
+      <p class="description">{{DESCRIPTION}}</p>
+      <div class="actions">
+        {{GITHUB_BUTTON}}
+        {{DEMO_BUTTON}}
+      </div>
+    </header>
+
+    <hr class="divider">
+
+    <section>
+      <h2>技术栈</h2>
+      <div class="tags">{{TECH_STACK_TAGS}}</div>
+    </section>
+
+    <hr class="divider">
+
+    <section>
+      <h2>项目亮点</h2>
+      <ul class="highlights">{{HIGHLIGHTS_LIST}}</ul>
+    </section>
+
+    <hr class="divider">
+
+    <section>
+      <h2>详细介绍</h2>
+      <div class="long-desc">{{LONG_DESCRIPTION}}</div>
+    </section>
+
+    <hr class="divider">
+
+    <a href="https://web.keyou.ccwu.cc/#projects" class="back-link" style="margin-top:2rem;">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+      </svg>
+      返回所有项目
+    </a>
+  </div>
+</body>
+</html>
