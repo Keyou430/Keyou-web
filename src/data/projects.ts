@@ -75,6 +75,28 @@ export const projects: Project[] = [
       '顺利通过课程验收',
     ],
   },
+  {
+    id: 'personal-knowledge-base',
+    title: '个人知识库系统',
+    description:
+      '基于 RAG（检索增强生成）的本地知识库系统。支持多格式文档导入（PDF/Markdown/TXT），通过向量检索与大语言模型实现智能问答，所有数据本地存储，保护隐私。',
+    longDescription:
+      '一个基于 RAG（Retrieval-Augmented Generation）架构的本地个人知识库系统，目标是让用户能够对自己的文档集合进行自然语言提问，获得基于文档内容的精准回答。\n\n' +
+      '系统核心流程：文档加载 → 文本分块 → 向量嵌入 → 向量存储 → 语义检索 → LLM 生成回答。支持 PDF、Markdown、TXT 等多种文档格式的导入与解析。\n\n' +
+      '技术实现上，采用 Python 构建后端服务，使用 LangChain 框架编排 RAG 流程，FAISS 进行高效向量检索，支持对接 OpenAI、本地模型等多种 LLM 后端。前端提供简洁的交互界面，用户可上传文档、管理知识库、进行对话式问答。\n\n' +
+      '项目采用模块化设计，文档加载器、分块策略、嵌入模型、检索器、生成器各组件可独立替换和扩展，便于根据需求灵活配置。',
+    category: 'AI Automation',
+    techStack: ['Python', 'LangChain', 'FAISS', 'RAG', 'OpenAI API', '向量检索'],
+    status: 'in-progress',
+    highlights: [
+      'RAG 架构，基于文档内容的精准问答',
+      '支持 PDF / Markdown / TXT 多格式文档导入',
+      'FAISS 向量检索，毫秒级语义匹配',
+      '模块化设计，各组件可独立替换扩展',
+      '本地数据存储，隐私安全可控',
+    ],
+    githubUrl: 'https://github.com/Keyou430/Personal-knowledge-base-system',
+  },
   // ====== 软件项目 ======
   {
     id: 'feishu-maintenance-system',

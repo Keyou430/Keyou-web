@@ -33,3 +33,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.env
+*.db
+*.sqlite3
+.venv/
+venv/
+
+# knowledge base data
+projects/personal-knowledge-base/data/raw/*
+!projects/personal-knowledge-base/data/raw/.gitkeep
