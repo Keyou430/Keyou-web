@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sync:projects": "node scripts/sync-projects.js",
+    "deploy": "node scripts/sync-projects.js && git add -A && git commit -m \"feat: sync projects and deploy\" && git push"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",
