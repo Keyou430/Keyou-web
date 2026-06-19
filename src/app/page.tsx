@@ -34,7 +34,7 @@ export default function Home() {
         <h2 className="font-mono text-2xl font-bold text-gradient sm:text-3xl">
           项目经历
         </h2>
-        <div className="mt-10 flex flex-col gap-4">
+        <div className="mt-10 grid grid-cols-2 gap-4">
           {projects.map((p) => (
             <ProjectCard key={p.id} project={p} />
           ))}
