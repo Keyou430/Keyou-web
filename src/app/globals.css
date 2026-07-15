@@ -12,19 +12,18 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
     min-height: 100vh;
-    /* Grid pattern overlay */
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-    background-size: 64px 64px;
+    letter-spacing: -0.01em;
   }
 
-  /* Ambient glow — top */
+  /* Ambient glow — top (Apple-style subtle blue) */
   body::before {
     content: '';
     position: fixed;
@@ -32,9 +31,9 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 1200px;
-    height: 50vh;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(6, 182, 212, 0.07) 0%, transparent 60%);
+    max-width: 1400px;
+    height: 60vh;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(41, 151, 255, 0.05) 0%, transparent 60%);
     pointer-events: none;
     z-index: 0;
   }
@@ -45,39 +44,50 @@
     position: fixed;
     bottom: 0;
     right: 0;
-    width: 60vw;
-    height: 40vh;
-    background: radial-gradient(ellipse 50% 50% at 80% 100%, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
+    width: 50vw;
+    height: 30vh;
+    background: radial-gradient(ellipse 50% 50% at 80% 100%, rgba(10, 132, 255, 0.03) 0%, transparent 60%);
     pointer-events: none;
     z-index: 0;
   }
 
-  /* Custom scrollbar */
+  /* Apple-style minimal scrollbar */
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0B0F19;
+    background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
   }
 }
 
 /* ====== Component Layer ====== */
 @layer components {
 
-  /* Glass card */
+  /* Glass card — Apple-style frosted glass */
   .glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-lg;
+    @apply backdrop-blur-xl border rounded-apple;
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.05);
   }
 
   .glass-sm {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-md;
+    @apply backdrop-blur-xl border rounded-apple;
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.05);
   }
 
   /* Text gradient — white to silver */
@@ -85,47 +95,67 @@
     @apply bg-gradient-to-r from-white via-white to-slate-400 bg-clip-text text-transparent;
   }
 
-  /* Text gradient — cyan to blue */
+  /* Text gradient — Apple blue spectrum */
   .text-gradient-accent {
     @apply bg-gradient-to-r from-accent-cyan via-accent to-accent-blue bg-clip-text text-transparent;
   }
 
-  /* Section label (code-style) */
+  /* Section label — clean Apple style */
   .section-label {
-    @apply font-mono text-xs text-accent/70 mb-3 tracking-wide;
+    @apply font-sans text-xs font-medium tracking-wide mb-4;
+    color: rgba(255, 255, 255, 0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
   .section-label::before {
-    content: '# ';
-    @apply text-dim;
+    content: '';
   }
 
-  /* Glow button */
+  /* Glow button — Apple-style filled button */
   .btn-glow {
-    @apply relative px-6 py-2.5 font-mono text-sm font-semibold text-background
-           bg-gradient-to-r from-accent-cyan to-accent-blue
-           rounded-md transition-all duration-200;
+    @apply relative px-7 py-3 font-sans text-sm font-semibold text-white
+           rounded-full transition-all duration-300;
+    background: linear-gradient(135deg, #2997ff 0%, #0a84ff 100%);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
   }
   .btn-glow:hover {
-    box-shadow: 0 0 24px rgba(6, 182, 212, 0.25);
+    background: linear-gradient(135deg, #4dabff 0%, #2997ff 100%);
+    box-shadow: 0 4px 16px rgba(41, 151, 255, 0.25), 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.15) inset;
     transform: translateY(-1px);
   }
-
-  /* Ghost button */
-  .btn-ghost {
-    @apply px-5 py-2 font-mono text-sm text-muted
-           border border-white/10 rounded-md
-           hover:border-white/25 hover:text-foreground
-           transition-all duration-200;
+  .btn-glow:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
   }
 
-  /* Form input */
+  /* Ghost button — Apple-style outline button */
+  .btn-ghost {
+    @apply px-7 py-3 font-sans text-sm font-medium
+           rounded-full transition-all duration-300;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .btn-ghost:hover {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  /* Form input — Apple-style */
   .input-dark {
-    @apply w-full px-3.5 py-2.5 font-sans text-sm text-foreground
-           bg-background border border-white/10 rounded-md
-           placeholder:text-dim/50
-           focus:outline-none focus:border-accent/40
-           focus:ring-1 focus:ring-accent/20
-           transition-colors duration-200;
+    @apply w-full px-4 py-3 font-sans text-sm text-foreground
+           rounded-apple transition-colors duration-200;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .input-dark::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+  }
+  .input-dark:focus {
+    @apply outline-none;
+    border-color: rgba(41, 151, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.1);
   }
 }
 

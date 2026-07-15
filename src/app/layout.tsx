@@ -16,11 +16,11 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body>
         <Navbar />
-        <main className="relative-z mx-auto max-w-5xl px-6 pb-24">
+        <main className="relative-z mx-auto max-w-5xl px-6 pb-32">
           {children}
         </main>
-        <footer className="relative-z border-t border-white/5 py-10 text-center font-mono text-xs text-dim">
-          {'/* '}&copy; {new Date().getFullYear()} Keyou Web{' */'}
+        <footer className="relative-z border-t border-white/[0.04] py-12 text-center font-sans text-xs text-dim tracking-wide">
+          &copy; {new Date().getFullYear()} Keyou Web
         </footer>
       </body>
     </html>

@@ -6,9 +6,9 @@ import Link from 'next/link';
 const WORD_LIST = ['作品', '博客', '笔记', '开源', '工程'];
 
 const NAV_ITEMS = [
-  { href: '/#projects', label: '/作品' },
-  { href: '/#stack', label: '/技术栈' },
-  { href: '/#contact', label: '/联系' },
+  { href: '/#projects', label: '作品' },
+  { href: '/#stack', label: '技术栈' },
+  { href: '/#contact', label: '联系' },
 ];
 
 export default function Navbar() {
@@ -56,29 +56,31 @@ export default function Navbar() {
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
   return (
-    <nav className="sticky top-0 z-50 glass border-x-0 border-t-0 rounded-none border-b-white/10">
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-6">
+    <nav className="sticky top-0 z-50 backdrop-blur-2xl border-b border-white/[0.06] rounded-none"
+      style={{ background: 'rgba(10, 10, 15, 0.78)' }}
+    >
+      <div className="mx-auto flex h-12 max-w-5xl items-center justify-between px-6">
         {/* Left */}
         <div className="flex items-center gap-3">
           <Link
             href="/"
-            className="font-mono text-base font-bold text-foreground no-underline tracking-tight"
+            className="font-sans text-[15px] font-semibold text-foreground no-underline tracking-tight"
           >
-            <span className="text-accent">&gt;</span> Keyou Web
+            Keyou Web
           </Link>
-          <span className="hidden font-mono text-[13px] text-dim sm:inline-block min-w-[80px]">
+          <span className="hidden font-mono text-[12px] text-dim/60 sm:inline-block min-w-[80px]">
             {typeText}
-            <span className="inline-block w-[1px] h-[14px] bg-accent ml-0.5 align-[-2px] animate-blink" />
+            <span className="inline-block w-[1px] h-[13px] bg-accent/70 ml-0.5 align-[-2px] animate-blink" />
           </span>
         </div>
 
         {/* Right — desktop */}
-        <ul className="hidden items-center gap-6 sm:flex">
+        <ul className="hidden items-center gap-7 sm:flex">
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className="font-mono text-[13px] text-muted no-underline transition-colors hover:text-accent"
+                className="font-sans text-[13px] text-muted/80 no-underline transition-colors duration-200 hover:text-foreground"
               >
                 {item.label}
               </Link>
@@ -112,7 +114,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div
-        className={`flex-col gap-0 border-t border-white/10 px-6 pb-3 pt-1 sm:hidden ${
+        className={`flex-col gap-0 border-t border-white/[0.06] px-6 pb-3 pt-1 sm:hidden ${
           menuOpen ? 'flex' : 'hidden'
         }`}
       >
@@ -120,7 +122,7 @@ export default function Navbar() {
           <Link
             key={item.href}
             href={item.href}
-            className="font-mono text-sm text-muted no-underline py-3 border-b border-white/5 last:border-b-0 hover:text-accent"
+            className="font-sans text-[14px] text-muted/80 no-underline py-3 border-b border-white/[0.04] last:border-b-0 hover:text-foreground transition-colors"
             onClick={closeMenu}
           >
             {item.label}
