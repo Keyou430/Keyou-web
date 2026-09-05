@@ -1,5 +1,6 @@
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
+import RainbowDivider from '@/components/RainbowDivider';
 
 export default function Home() {
   return (
@@ -34,12 +35,14 @@ export default function Home() {
         <h2 className="font-sans text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold text-gradient tracking-[-0.02em]">
           项目经历
         </h2>
-        <div className="mt-12 grid grid-cols-2 gap-5">
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-8">
           {projects.map((p) => (
             <ProjectCard key={p.id} project={p} />
           ))}
         </div>
       </section>
+
+      <RainbowDivider />
 
       {/* ====== Tech Stack ====== */}
       <section id="stack" className="relative-z py-24 animate-slide-up">
@@ -78,6 +81,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      <RainbowDivider />
 
       {/* ====== Contact ====== */}
       <section id="contact" className="relative-z py-24 animate-slide-up">
