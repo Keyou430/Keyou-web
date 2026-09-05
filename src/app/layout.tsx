@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import MouseGlow from '@/components/MouseGlow';
 import Navbar from '@/components/Navbar';
 import './globals.css';
 
@@ -15,6 +16,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body>
+        <MouseGlow />
         <Navbar />
         <main className="relative-z mx-auto max-w-5xl px-6 pb-32">
           {children}
