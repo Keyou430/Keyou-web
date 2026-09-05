@@ -35,17 +35,19 @@ Brittany Chiang (brittanychiang.com) - subtle radial gradient following cursor
   --mouse-y: 50%;
 }
 
-.mouse-glow {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background: radial-gradient(
-    600px circle at var(--mouse-x) var(--mouse-y),
-    rgba(41, 151, 255, 0.06),
-    transparent 60%
-  );
-  filter: blur(40px);
+@media (hover: hover) and (pointer: fine) {
+  .mouse-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(41, 151, 255, 0.06),
+      transparent 60%
+    );
+    filter: blur(40px);
+  }
 }
 ```
 
@@ -54,6 +56,7 @@ Brittany Chiang (brittanychiang.com) - subtle radial gradient following cursor
 - Updates CSS variables `--mouse-x` and `--mouse-y` on `documentElement`
 - Renders a single `<div className="mouse-glow" />`
 - No props, no state
+- Disabled on touch devices via `@media (hover: hover)` or checking `matchMedia('(pointer: fine)')`
 
 **Integration (`layout.tsx`)**:
 - Add `<MouseGlow />` inside `<body>`, before `<main>`
@@ -83,7 +86,7 @@ Rauno.me - minimalist typography, generous whitespace, subtle hover micro-intera
 | Highlights | 3 items shown | Removed |
 | Hover scale | `1.015` | `1.02` |
 | Hover shadow | `0_8px_30px` | `0_20px_60px_-15px` |
-| Background | `glass` always | `hover:bg-white/[0.02]` only |
+| Background | `glass` always visible | Transparent by default, `hover:bg-white/[0.02]` on hover |
 | Tech stack | Wrapped badges | Bottom-aligned, `max-4` items |
 
 ### Component Structure
