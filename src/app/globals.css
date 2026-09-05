@@ -73,6 +73,28 @@
   }
 }
 
+/* ====== Mouse Glow ====== */
+:root {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mouse-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      600px circle at var(--mouse-x) var(--mouse-y),
+      rgba(41, 151, 255, 0.06),
+      transparent 60%
+    );
+    filter: blur(40px);
+    transition: background 0.3s ease;
+  }
+}
+
 /* ====== Component Layer ====== */
 @layer components {
 
