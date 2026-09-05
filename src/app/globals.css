@@ -95,6 +95,30 @@
   }
 }
 
+/* ====== Rainbow Divider ====== */
+.rainbow-divider {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ff6b6b 15%,
+    #ffd93d 30%,
+    #6bcb77 45%,
+    #4d96ff 60%,
+    #9b59b6 75%,
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: rainbow-shift 8s ease infinite;
+  opacity: 0.4;
+}
+
+@keyframes rainbow-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 /* ====== Component Layer ====== */
 @layer components {
 
