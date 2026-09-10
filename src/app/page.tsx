@@ -1,6 +1,7 @@
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
 import RainbowDivider from '@/components/RainbowDivider';
+import HeroSpotlight from '@/components/HeroSpotlight';
 
 export default function Home() {
   return (
@@ -8,11 +9,17 @@ export default function Home() {
       {/* ====== Hero ====== */}
       <section className="relative-z flex min-h-[72vh] flex-col justify-center pt-20 pb-16 animate-fade-in">
         <p className="section-label">关于</p>
-        <h1 className="font-sans text-[clamp(2.5rem,6vw,4rem)] font-bold leading-[1.08] tracking-[-0.03em]">
-          <span className="text-gradient">你好，我是 </span>
-          <span className="text-gradient-accent">陈源富</span>
-        </h1>
-        <p className="mt-6 max-w-xl font-sans text-[17px] text-muted leading-relaxed">
+        <HeroSpotlight
+          titleZh={
+            <>
+              <span className="text-gradient">你好，我是 </span>
+              <span className="text-gradient-accent">陈源富</span>
+            </>
+          }
+          titleEn="HELLO, I'M KEYOU"
+          label="About"
+        />
+        <p className="mt-8 max-w-xl font-sans text-[17px] text-muted leading-relaxed">
           电子信息工程在读，专注于嵌入式系统与硬件开发。
           同时实践 Vibe Coding，探索 AI 驱动的软件开发。
         </p>
