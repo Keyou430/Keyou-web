@@ -73,10 +73,12 @@
   }
 }
 
-/* ====== Mouse Glow ====== */
+/* ====== Mouse Glow (Brittany Chiang style) ====== */
 :root {
   --mouse-x: 50%;
   --mouse-y: 50%;
+  --mouse-x-pct: 50%;
+  --mouse-y-pct: 50%;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -85,38 +87,156 @@
     inset: 0;
     pointer-events: none;
     z-index: 0;
+  }
+
+  .mouse-glow__core {
+    position: absolute;
+    inset: 0;
     background: radial-gradient(
       600px circle at var(--mouse-x) var(--mouse-y),
-      rgba(41, 151, 255, 0.06),
-      transparent 60%
+      rgba(41, 151, 255, 0.15),
+      transparent 80%
     );
-    filter: blur(40px);
-    transition: background 0.3s ease;
+  }
+
+  .mouse-glow__halo {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      1200px circle at var(--mouse-x) var(--mouse-y),
+      rgba(29, 78, 216, 0.08),
+      transparent 70%
+    );
+    filter: blur(20px);
   }
 }
 
-/* ====== Rainbow Divider ====== */
+@media (hover: none), (pointer: coarse) {
+  .mouse-glow {
+    display: none;
+  }
+}
+
+/* ====== Rainbow (Josh W Comeau style) ====== */
 .rainbow-divider {
   height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #ff6b6b 12%,
+    #ffd93d 28%,
+    #6bcb77 44%,
+    #4d96ff 60%,
+    #9b59b6 76%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: rainbow-shift 8s ease infinite;
+  opacity: 0.55;
+}
+
+.rainbow-divider--strong {
+  height: 3px;
+  opacity: 0.85;
+  box-shadow:
+    0 0 18px rgba(77, 150, 255, 0.35),
+    0 0 28px rgba(255, 107, 107, 0.15);
+}
+
+.rainbow-divider__glow {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: -8px;
+  height: 18px;
+  border-radius: 999px;
   background: linear-gradient(
     90deg,
     transparent,
-    #ff6b6b 15%,
-    #ffd93d 30%,
-    #6bcb77 45%,
-    #4d96ff 60%,
-    #9b59b6 75%,
+    rgba(255, 107, 107, 0.25),
+    rgba(255, 217, 61, 0.25),
+    rgba(107, 203, 119, 0.25),
+    rgba(77, 150, 255, 0.3),
+    rgba(155, 89, 182, 0.25),
     transparent
   );
   background-size: 200% 100%;
   animation: rainbow-shift 8s ease infinite;
-  opacity: 0.4;
+  filter: blur(12px);
+  opacity: 0.7;
+  pointer-events: none;
 }
 
 @keyframes rainbow-shift {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Decorative rainbow orbs in page margins / blank space */
+.rainbow-orbs {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.rainbow-orb {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: 0.22;
+  will-change: transform;
+}
+
+.rainbow-orb--a {
+  width: 320px;
+  height: 320px;
+  top: 12%;
+  right: -80px;
+  background: radial-gradient(circle, #ff6b6b 0%, transparent 70%);
+  animation: orb-drift-a 18s ease-in-out infinite alternate;
+}
+
+.rainbow-orb--b {
+  width: 380px;
+  height: 380px;
+  bottom: 18%;
+  left: -120px;
+  background: radial-gradient(circle, #4d96ff 0%, transparent 70%);
+  animation: orb-drift-b 22s ease-in-out infinite alternate;
+}
+
+.rainbow-orb--c {
+  width: 240px;
+  height: 240px;
+  top: 55%;
+  right: 12%;
+  background: radial-gradient(circle, #9b59b6 0%, transparent 70%);
+  animation: orb-drift-c 16s ease-in-out infinite alternate;
+}
+
+@keyframes orb-drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-40px, 50px, 0) scale(1.12); }
+}
+
+@keyframes orb-drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(50px, -30px, 0) scale(1.08); }
+}
+
+@keyframes orb-drift-c {
+  from { transform: translate3d(0, 0, 0) scale(1); opacity: 0.16; }
+  to { transform: translate3d(-30px, -40px, 0) scale(1.2); opacity: 0.28; }
+}
+
+@media (max-width: 768px) {
+  .rainbow-orbs {
+    display: none;
+  }
 }
 
 /* ====== Component Layer ====== */
@@ -144,6 +264,53 @@
   /* Text gradient — Apple blue spectrum */
   .text-gradient-accent {
     @apply bg-gradient-to-r from-accent-cyan via-accent to-accent-blue bg-clip-text text-transparent;
+  }
+
+  /* Rainbow title underline (Josh-style accent in blank/section space) */
+  .section-title-rainbow {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.35em;
+  }
+
+  .section-title-rainbow::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 3.25rem;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff, #9b59b6);
+    background-size: 200% 100%;
+    animation: rainbow-shift 6s ease infinite;
+    opacity: 0.9;
+  }
+
+  /* Rauno-style work row */
+  .rauno-row {
+    position: relative;
+  }
+
+  .rauno-row::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    right: -1rem;
+    top: 0;
+    bottom: 0;
+    border-radius: 16px;
+    background: transparent;
+    transition: background 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: -1;
+  }
+
+  .rauno-row:hover::before {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .rauno-row:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   /* Section label — clean Apple style */

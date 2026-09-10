@@ -1,11 +1,14 @@
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
 import RainbowDivider from '@/components/RainbowDivider';
+import RainbowOrbs from '@/components/RainbowOrbs';
 import HeroSpotlight from '@/components/HeroSpotlight';
 
 export default function Home() {
   return (
     <>
+      <RainbowOrbs />
+
       {/* ====== Hero ====== */}
       <section className="relative-z flex min-h-[72vh] flex-col justify-center pt-20 pb-16 animate-fade-in">
         <p className="section-label">关于</p>
@@ -36,15 +39,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ====== Projects (Large Cards) ====== */}
-      <section id="projects" className="relative-z py-24">
+      <RainbowDivider className="!my-12" />
+
+      {/* ====== Projects (Rauno work list) ====== */}
+      <section id="projects" className="relative-z py-20">
         <p className="section-label">作品</p>
-        <h2 className="font-sans text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold text-gradient tracking-[-0.02em]">
+        <h2 className="section-title-rainbow font-sans text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold text-gradient tracking-[-0.02em]">
           项目经历
         </h2>
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {projects.map((p) => (
-            <ProjectCard key={p.id} project={p} />
+        <div className="mt-10">
+          {projects.map((p, i) => (
+            <ProjectCard key={p.id} project={p} index={i} />
           ))}
         </div>
       </section>
@@ -54,7 +59,7 @@ export default function Home() {
       {/* ====== Tech Stack ====== */}
       <section id="stack" className="relative-z py-24 animate-slide-up">
         <p className="section-label">技术栈</p>
-        <h2 className="font-sans text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold text-gradient tracking-[-0.02em]">
+        <h2 className="section-title-rainbow font-sans text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold text-gradient tracking-[-0.02em]">
           专业技能
         </h2>
         <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
@@ -94,7 +99,7 @@ export default function Home() {
       {/* ====== Contact ====== */}
       <section id="contact" className="relative-z py-24 animate-slide-up">
         <p className="section-label">联系</p>
-        <h2 className="font-sans text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold text-gradient tracking-[-0.02em]">
+        <h2 className="section-title-rainbow font-sans text-[clamp(1.75rem,3.5vw,2.25rem)] font-bold text-gradient tracking-[-0.02em]">
           联系我
         </h2>
         <p className="mt-5 max-w-lg text-[15px] text-muted leading-relaxed">
@@ -114,6 +119,8 @@ export default function Home() {
           </a>
         </div>
       </section>
+
+      <RainbowDivider strong className="mt-24 !mb-0" />
     </>
   );
 }

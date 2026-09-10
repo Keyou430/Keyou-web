@@ -4,14 +4,23 @@ import { useEffect } from 'react';
 
 export default function MouseGlow() {
   useEffect(() => {
+    const root = document.documentElement;
+
     const handleMouseMove = (e: MouseEvent) => {
-      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+      root.style.setProperty('--mouse-x', `${e.clientX}px`);
+      root.style.setProperty('--mouse-y', `${e.clientY}px`);
+      root.style.setProperty('--mouse-x-pct', `${(e.clientX / window.innerWidth) * 100}%`);
+      root.style.setProperty('--mouse-y-pct', `${(e.clientY / window.innerHeight) * 100}%`);
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => document.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  return <div className="mouse-glow" aria-hidden="true" />;
+  return (
+    <div className="mouse-glow" aria-hidden="true">
+      <div className="mouse-glow__core" />
+      <div className="mouse-glow__halo" />
+    </div>
+  );
 }

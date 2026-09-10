@@ -23,6 +23,7 @@ export default function RootLayout({
         </main>
         <footer className="relative-z border-t border-white/[0.04] py-12 text-center font-sans text-xs text-dim tracking-wide">
           &copy; {new Date().getFullYear()} Keyou Web
+          <div className="mx-auto mt-6 h-[2px] w-24 rainbow-divider" aria-hidden="true" />
         </footer>
       </body>
     </html>
