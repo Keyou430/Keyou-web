@@ -3,6 +3,7 @@ import ProjectCard from '@/components/ProjectCard';
 import RainbowDivider from '@/components/RainbowDivider';
 import RainbowOrbs from '@/components/RainbowOrbs';
 import HeroSpotlight from '@/components/HeroSpotlight';
+import StackSpread from '@/components/StackSpread';
 
 export default function Home() {
   return (
@@ -38,6 +39,24 @@ export default function Home() {
           </a>
         </div>
       </section>
+
+      {/* ====== Stack Spread (scroll scatter showcase) ====== */}
+      <div className="-mx-6 max-md:-mx-4">
+        <StackSpread
+          scrollLength={280}
+          bgColor="#0a0a0f"
+          textColor="#f5f5f7"
+          cardRadius={10}
+          stackScale={0.82}
+          headline={
+            <>
+              Things I&apos;ve{' '}
+              <span className="opacity-60">Built</span>
+            </>
+          }
+          subtitle="嵌入式系统、硬件工程与 AI 驱动工具。向下滚动查看。"
+        />
+      </div>
 
       <RainbowDivider className="!my-12" />
 

@@ -53,6 +53,7 @@ export const projects: Project[] = [
     status: 'in-progress',
     highlights: ['RAG 架构，基于文档内容的精准问答', '支持 PDF / Markdown / TXT 多格式文档导入', 'FAISS 向量检索，毫秒级语义匹配', '模块化设计，各组件可独立替换扩展', '本地数据存储，隐私安全可控'],
     githubUrl: 'https://github.com/Keyou430/Personal-knowledge-base-system',
+    images: ['/stack/img1.png', '/stack/img3.png', '/stack/img5.png'],
   },
   {
     id: 'feishu-maintenance-system',
@@ -64,6 +65,7 @@ export const projects: Project[] = [
     status: 'completed',
     highlights: ['Web 报修 + 飞书审批流双入口，全流程飞书内闭环', '飞书消息卡片通知，按优先级（紧急/高/中/低）显示不同颜色', '维修人员通过卡片按钮一键接单、标记完成', '自动轮询多维表格发现新工单，防重复通知机制', 'Webhook 审批回调 + 卡片交互回调，先响应后处理优化体验'],
     githubUrl: 'https://github.com/Keyou430/feishu-maintenance-system',
+    images: ['/stack/img2.png', '/stack/img4.png', '/stack/img6.png'],
   },
   {
     id: 'keyou-web',
@@ -76,6 +78,7 @@ export const projects: Project[] = [
     highlights: ['基于 Next.js 14 App Router，支持静态导出与服务端渲染', 'GitHub Issues 作为 CMS，零后端成本实现动态内容管理', 'GitHub Actions 自动化 CI/CD，推送即部署', '毛玻璃暗色主题 + Framer Motion 滚动动画', '通过 Vibe Coding 方式完成，探索 AI 辅助开发'],
     githubUrl: 'https://github.com/Keyou430/Keyou-web',
     demoUrl: 'https://web.keyou.ccwu.cc',
+    images: ['/stack/img7.png', '/stack/img8.png', '/stack/img5.png', '/stack/img3.png'],
   },
   {
     id: 'ai-social-aggregator',
@@ -87,6 +90,7 @@ export const projects: Project[] = [
     status: 'completed',
     highlights: ['多平台社交媒体内容自动抓取与解析', 'LLM 驱动的语义聚合与热点话题提取', '自动将聚合内容转化为播客脚本', 'TTS 引擎自动合成音频', '全链路自动化，从数据采集到内容分发'],
     githubUrl: 'https://github.com/Keyou430/ai-social-aggregator',
+    images: ['/stack/img3.png', '/stack/img6.png', '/stack/img1.png'],
   },
   {
     id: 'worldquant-alpha-optimization',
@@ -98,5 +102,6 @@ export const projects: Project[] = [
     status: 'completed',
     highlights: ['系统性的 Alpha 因子挖掘方法论', '多因子组合分析与交互效应研究', '夏普比率最大化优化算法', '严格的样本外回测验证', '因子信噪比评估与过拟合防控'],
     githubUrl: 'https://github.com/Keyou430/worldquant-alpha',
+    images: ['/stack/img4.png', '/stack/img8.png', '/stack/img2.png'],
   }
 ];

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { projects } from '@/data/projects';
 import Badge from '@/components/Badge';
+import ProjectGallery from '@/components/ProjectGallery';
 import Link from 'next/link';
 
 interface Props {
@@ -94,6 +95,9 @@ export default async function ProjectDetail({ params }: Props) {
           )}
         </div>
       </header>
+
+      {/* MorphGallery — WebGL noise dissolve showcase */}
+      <ProjectGallery images={project.images ?? []} />
 
       {/* Divider */}
       <div className="border-t border-white/[0.04] mb-12" />
