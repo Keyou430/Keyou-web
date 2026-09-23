@@ -225,8 +225,8 @@ export default function ProjectStackSpread() {
       style={{ height: '280vh', backgroundColor: '#0a0a0f' }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* scattered project cards */}
-        <div className="absolute inset-0 z-10">
+        {/* scattered project cards — pointer-events-none so mouse reaches centre spotlight */}
+        <div className="pointer-events-none absolute inset-0 z-10">
           {cards.map((card, i) => (
             <ProjectCard
               key={card.id}
@@ -241,9 +241,9 @@ export default function ProjectStackSpread() {
           ))}
         </div>
 
-        {/* centre — HeroSpotlight fades in after scatter */}
+        {/* centre — HeroSpotlight fades in after scatter; z above cards so mouse hits it */}
         <motion.div
-          className="pointer-events-none absolute inset-0 z-[5] flex items-center justify-center"
+          className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
           style={{ opacity: centerOpacity, scale: centerScale }}
         >
           <div className="pointer-events-auto">

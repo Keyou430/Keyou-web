@@ -194,7 +194,7 @@ export default function HeroSpotlight({
       <div
         ref={altRef}
         className="hero-spotlight__alt"
-        style={{ clipPath: 'circle(0px at -300px -300px)' }}
+        style={{ clipPath: 'circle(0px at 50% 50%)' }}
         aria-hidden="true"
       >
         <PatternGrid variant="alt" />
