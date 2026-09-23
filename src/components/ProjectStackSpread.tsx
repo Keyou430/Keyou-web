@@ -222,7 +222,7 @@ export default function ProjectStackSpread() {
     <div
       ref={wrapRef}
       className="relative-z w-full"
-      style={{ height: '280vh', backgroundColor: '#0a0a0f' }}
+      style={{ height: '280vh' }}
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* scattered project cards — pointer-events-none so mouse reaches centre spotlight */}
@@ -241,7 +241,7 @@ export default function ProjectStackSpread() {
           ))}
         </div>
 
-        {/* centre — HeroSpotlight (transparent panel, no occlusion) */}
+        {/* centre — HeroSpotlight on page background */}
         <motion.div
           className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
           style={{ opacity: centerOpacity, scale: centerScale }}
