@@ -287,16 +287,6 @@
     opacity: 0.9;
   }
 
-  /* Project spread card — used by ProjectStackSpread */
-  .project-spread-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    padding: 20px 22px;
-    backdrop-filter: blur(12px);
-    user-select: none;
-  }
-
   /* Rauno-style work row */
   .rauno-row {
     position: relative;
@@ -387,28 +377,29 @@
   position: relative;
   overflow: hidden;
   cursor: crosshair;
-  min-height: clamp(240px, 36vh, 380px);
-  width: min(56vw, 520px);
+  min-height: clamp(280px, 42vh, 420px);
   border-radius: 22px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.015);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.03),
+    0 24px 80px -40px rgba(41, 151, 255, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 48px 32px 56px;
 }
 
-/* subtle depth glow — not a panel, just a halo */
 .hero-spotlight::after {
   content: '';
   pointer-events: none;
   position: absolute;
-  inset: -20%;
+  inset: 0;
   z-index: 1;
   background: radial-gradient(
-    50% 50% at 50% 50%,
-    rgba(41, 151, 255, 0.06) 0%,
-    transparent 70%
+    50% 45% at 50% 50%,
+    rgba(10, 10, 15, 0.55) 0%,
+    transparent 100%
   );
 }
 
@@ -423,25 +414,11 @@
   overflow: hidden;
 }
 
-/* radial fade — keeps the centre clean for the title */
-.hero-pattern::after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(
-    55% 50% at 50% 50%,
-    rgba(10, 10, 15, 0.82) 0%,
-    transparent 100%
-  );
-}
-
 .hero-pattern__row {
   white-space: nowrap;
   display: flex;
   flex-wrap: nowrap;
-  color: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.045);
   letter-spacing: 0.3em;
   font-size: clamp(28px, 3.2vw, 40px);
   font-weight: 700;
@@ -458,7 +435,7 @@
 }
 
 .hero-pattern--alt .hero-pattern__row {
-  color: rgba(100, 210, 255, 0.18);
+  color: rgba(255, 255, 255, 0.12);
   font-size: clamp(22px, 2.4vw, 30px);
 }
 
@@ -467,10 +444,9 @@
   pointer-events: none;
   position: absolute;
   inset: 0;
-  z-index: 1;
   background: radial-gradient(
-    55% 50% at 50% 50%,
-    rgba(0, 20, 40, 0.7) 0%,
+    45% 40% at 50% 50%,
+    rgba(0, 0, 0, 0.75) 0%,
     transparent 100%
   );
 }
@@ -486,7 +462,6 @@
   font-weight: 700;
   line-height: 1.1;
   color: #fff;
-  text-shadow: 0 0 40px rgba(41, 151, 255, 0.2);
 }
 
 .hero-spotlight__alt {
@@ -498,9 +473,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(41, 151, 255, 0.1);
-  backdrop-filter: blur(2px);
-  clip-path: circle(0px at 50% 50%);
+  background: #000;
 }
 
 .hero-spotlight__title--alt {
@@ -510,7 +483,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 18px rgba(41, 151, 255, 0.35));
 }
 
 .hero-spotlight__label {
@@ -525,13 +497,12 @@
   font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 @media (hover: none), (pointer: coarse) {
   .hero-spotlight {
     cursor: default;
-    width: min(88vw, 520px);
   }
 }
 
