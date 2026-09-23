@@ -388,14 +388,11 @@
   position: relative;
   overflow: hidden;
   cursor: crosshair;
-  min-height: clamp(280px, 42vh, 420px);
-  width: min(72vw, 640px);
+  min-height: clamp(240px, 36vh, 380px);
+  width: min(56vw, 520px);
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.025);
-  box-shadow:
-    0 0 0 0.5px rgba(255, 255, 255, 0.04),
-    0 24px 80px -40px rgba(41, 151, 255, 0.25);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -403,16 +400,7 @@
 }
 
 .hero-spotlight::after {
-  content: '';
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(
-    50% 45% at 50% 50%,
-    rgba(10, 10, 15, 0.3) 0%,
-    transparent 100%
-  );
+  content: none;
 }
 
 .hero-pattern {

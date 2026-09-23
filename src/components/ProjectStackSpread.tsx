@@ -14,16 +14,16 @@ import { useEffect, useRef, useState } from 'react';
 import { projects } from '@/data/projects';
 import HeroSpotlight from '@/components/HeroSpotlight';
 
-// scatter targets in vw / vh from centre
+// scatter targets in vw / vh from centre — ring around the Hero, no overlap
 const LAYOUT = [
-  { target: { x: -34, y: -32 }, stack: { x: -8, y: -10 }, rotate: -14, z: 1 },
-  { target: { x: 0, y: -36 }, stack: { x: 4, y: -8 }, rotate: 6, z: 2 },
-  { target: { x: 34, y: -30 }, stack: { x: 12, y: -6 }, rotate: -8, z: 3 },
-  { target: { x: -38, y: 2 }, stack: { x: -14, y: 0 }, rotate: 10, z: 4 },
-  { target: { x: 38, y: 4 }, stack: { x: 14, y: 2 }, rotate: -6, z: 5 },
+  { target: { x: -32, y: -34 }, stack: { x: -8, y: -10 }, rotate: -14, z: 1 },
+  { target: { x: 0, y: -38 }, stack: { x: 4, y: -8 }, rotate: 6, z: 2 },
+  { target: { x: 32, y: -34 }, stack: { x: 12, y: -6 }, rotate: -8, z: 3 },
+  { target: { x: -36, y: 2 }, stack: { x: -14, y: 0 }, rotate: 10, z: 4 },
+  { target: { x: 36, y: 4 }, stack: { x: 14, y: 2 }, rotate: -6, z: 5 },
   { target: { x: -32, y: 34 }, stack: { x: -6, y: 10 }, rotate: 8, z: 6 },
-  { target: { x: 2, y: 36 }, stack: { x: 6, y: 8 }, rotate: -4, z: 7 },
-  { target: { x: 34, y: 32 }, stack: { x: 16, y: 12 }, rotate: 12, z: 8 },
+  { target: { x: 0, y: 38 }, stack: { x: 6, y: 8 }, rotate: -4, z: 7 },
+  { target: { x: 32, y: 34 }, stack: { x: 16, y: 12 }, rotate: 12, z: 8 },
 ];
 
 // touch / small-screen: two neat columns
@@ -151,7 +151,7 @@ function ProjectCard({
     <motion.div
       className="absolute left-1/2 top-1/2 will-change-transform"
       style={{
-        width: isTouch ? '42vw' : 'min(22vw, 260px)',
+        width: isTouch ? '42vw' : 'min(18vw, 220px)',
         zIndex: card.z,
         translate,
         rotate,
@@ -241,7 +241,7 @@ export default function ProjectStackSpread() {
           ))}
         </div>
 
-        {/* centre — HeroSpotlight fades in after scatter; z above cards so mouse hits it */}
+        {/* centre — HeroSpotlight (transparent panel, no occlusion) */}
         <motion.div
           className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
           style={{ opacity: centerOpacity, scale: centerScale }}
