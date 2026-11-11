@@ -45,6 +45,4 @@ __pycache__/
 .venv/
 venv/
 
-# knowledge base data
-projects/personal-knowledge-base/data/raw/*
-!projects/personal-knowledge-base/data/raw/.gitkeep
+

@@ -10,7 +10,7 @@
 - **语言：** TypeScript
 - **样式：** Tailwind CSS
 - **动画：** Framer Motion
-- **部署：** Vercel
+- **部署：** GitHub Pages (GitHub Actions)
 
 ## 快速开始
 
@@ -82,8 +82,7 @@ npm run sync:projects
 
 脚本会自动：
 - 🔍 扫描项目目录，提取技术栈和描述
-- 📄 生成详情页 HTML
-- 📝 更新主站项目数据
+- 📝 更新主站项目数据（`src/data/projects.ts`）
 - ✅ 更新配置文件状态为 `deployed`
 
 3. 一键部署：
@@ -92,7 +91,7 @@ npm run sync:projects
 npm run deploy
 ```
 
-自动同步 + commit + push，Vercel 会自动部署上线。
+自动同步 + commit + push，GitHub Actions 会自动构建并部署到 GitHub Pages。
 
 ### 字段说明
 
@@ -125,16 +124,14 @@ npm run deploy
 ```
 ├── projects-config.json          # 项目总清单
 ├── scripts/
-│   ├── sync-projects.js          # 自动化同步脚本
-│   └── templates/
-│       └── project-detail.html   # 详情页 HTML 模板
+│   └── sync-projects.js          # 自动化同步脚本
 ├── src/
 │   ├── app/
 │   │   ├── page.tsx              # 首页
-│   │   └── projects/[id]/page.tsx # 项目详情页
+│   │   └── projects/[id]/page.tsx # 项目详情页（App Router 静态生成）
 │   ├── components/               # 组件
 │   └── data/
 │       └── projects.ts           # 项目数据（自动生成）
 └── public/
-    └── project-pages/            # 独立项目详情页（自动生成）
+    └── CNAME                     # 自定义域名配置
 ```

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef } from 'react';
 
 const TRAIL_LEN = 6;
 const RADIUS = 200;
-const SEGS = 48;
+const SEGS = 24;
 const PATTERN_ROWS = 10;
 const PATTERN_COLS = 18;
 const PATTERN_TEXT = 'K E Y O U';
@@ -129,7 +129,9 @@ export default function HeroSpotlight({
       'ontouchstart' in window ||
       navigator.maxTouchPoints > 0;
 
-    if (isTouch) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (isTouch || prefersReducedMotion) {
       alt.style.display = 'none';
       return;
     }
@@ -169,11 +171,12 @@ export default function HeroSpotlight({
       else if (y >= rect.height) ty = rect.height + 400;
       state.targetX = tx;
       state.targetY = ty;
+      kick();
     };
 
-    surface.addEventListener('mousemove', onMove);
-    surface.addEventListener('mouseenter', onEnter);
-    surface.addEventListener('mouseleave', onLeave);
+    surface.addEventListener('mousemove', onMove, { passive: true });
+    surface.addEventListener('mouseenter', onEnter, { passive: true });
+    surface.addEventListener('mouseleave', onLeave, { passive: true });
 
     return () => {
       surface.removeEventListener('mousemove', onMove);

@@ -5,9 +5,8 @@
  *
  * 读取 projects-config.json，对于 status 为 "pending" 且有 sourcePath 的项目：
  *   1. 扫描项目目录，自动提取信息
- *   2. 生成详情页 HTML
- *   3. 更新 projects-config.json 状态为 "deployed"
- *   4. 更新 src/data/projects.ts
+ *   2. 更新 projects-config.json 状态为 "deployed"
+ *   3. 更新 src/data/projects.ts（Next.js App Router 自动完成详情页静态生成）
  *
  * 用法：node scripts/sync-projects.js
  */
@@ -18,8 +17,6 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const CONFIG_PATH = path.join(ROOT, 'projects-config.json');
 const PROJECTS_TS_PATH = path.join(ROOT, 'src', 'data', 'projects.ts');
-const TEMPLATE_PATH = path.join(ROOT, 'scripts', 'templates', 'project-detail.html');
-const PUBLIC_DIR = path.join(ROOT, 'public');
 
 // ========== 工具函数 ==========
 
@@ -204,49 +201,6 @@ function extractProjectInfo(sourcePath) {
   return info;
 }
 
-// ========== HTML 生成 ==========
-
-function generateDetailPage(project, template) {
-  let html = template;
-
-  html = html.replace(/\{\{TITLE\}\}/g, project.name);
-  html = html.replace(/\{\{DESCRIPTION\}\}/g, project.description);
-  html = html.replace(/\{\{CATEGORY\}\}/g, project.category || '');
-
-  // 技术栈标签
-  const techTags = (project.techStack || [])
-    .map(t => `<span class="tag">${t}</span>`)
-    .join('\n        ');
-  html = html.replace(/\{\{TECH_STACK_TAGS\}\}/g, techTags);
-
-  // 亮点列表
-  const highlightsList = (project.highlights || [])
-    .map(h => `<li>${h}</li>`)
-    .join('\n        ');
-  html = html.replace(/\{\{HIGHLIGHTS_LIST\}\}/g, highlightsList);
-
-  // 长描述
-  const longDesc = (project.longDescription || project.description || '')
-    .split('\n\n')
-    .map(p => `<p>${p}</p>`)
-    .join('\n        ');
-  html = html.replace(/\{\{LONG_DESCRIPTION\}\}/g, longDesc);
-
-  // GitHub 按钮
-  const githubBtn = project.githubUrl
-    ? `<a href="${project.githubUrl}" class="btn btn-primary" target="_blank">查看源码</a>`
-    : '';
-  html = html.replace(/\{\{GITHUB_BUTTON\}\}/g, githubBtn);
-
-  // Demo 按钮
-  const demoBtn = project.demoUrl
-    ? `<a href="${project.demoUrl}" class="btn btn-ghost" target="_blank">在线演示</a>`
-    : '';
-  html = html.replace(/\{\{DEMO_BUTTON\}\}/g, demoBtn);
-
-  return html;
-}
-
 // ========== projects.ts 生成 ==========
 
 function generateProjectsTs(projects) {
@@ -292,7 +246,6 @@ ${projectEntries.join(',\n')}
 function main() {
   console.log('🔄 读取 projects-config.json ...');
   const config = readJSON(CONFIG_PATH);
-  const template = readFile(TEMPLATE_PATH);
 
   let updated = false;
 
@@ -320,21 +273,10 @@ function main() {
       project.projectStatus = project.projectStatus || info.projectStatus;
       project.highlights = project.highlights.length > 0 ? project.highlights : info.highlights;
 
-      // 3. 生成详情页
+      // 3. 确保项目 ID 存在
       if (!project.id) {
         project.id = project.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
       }
-
-      const detailPageDir = path.join(PUBLIC_DIR, 'project-pages');
-      if (!fs.existsSync(detailPageDir)) {
-        fs.mkdirSync(detailPageDir, { recursive: true });
-      }
-
-      const detailPagePath = path.join(detailPageDir, `${project.id}.html`);
-      console.log(`   📄 生成详情页: ${detailPagePath}`);
-      const html = generateDetailPage(project, template);
-      writeFile(detailPagePath, html);
-      project.detailPage = `/project-pages/${project.id}.html`;
 
       // 4. 更新状态
       project.status = 'deployed';

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
-const WORD_LIST = ['作品', '博客', '笔记', '开源', '工程'];
+const WORD_LIST = ['嵌入式开发', '硬件工程', 'AI Automation', 'Vibe Coding', '全栈实践'];
 
 const NAV_ITEMS = [
   { href: '/#projects', label: '作品' },
@@ -20,26 +20,40 @@ export default function Navbar() {
 
   // Typewriter tick
   useEffect(() => {
-    const word = WORD_LIST[wordIdx];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (!deleting) {
-      if (charIdx < word.length) {
-        timeout = setTimeout(() => setCharIdx(charIdx + 1), 90);
-      } else {
-        timeout = setTimeout(() => setDeleting(true), 1800);
-      }
-    } else {
-      if (charIdx > 0) {
-        timeout = setTimeout(() => setCharIdx(charIdx - 1), 50);
-      } else {
-        setDeleting(false);
-        setWordIdx((wordIdx + 1) % WORD_LIST.length);
-      }
+    // Check reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setTypeText(WORD_LIST[0]);
+      return;
     }
 
+    if (menuOpen) return;
+
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const handleTick = () => {
+      if (document.hidden) return;
+
+      const word = WORD_LIST[wordIdx];
+      if (!deleting) {
+        if (charIdx < word.length) {
+          timeout = setTimeout(() => setCharIdx((prev) => prev + 1), 90);
+        } else {
+          timeout = setTimeout(() => setDeleting(true), 1800);
+        }
+      } else {
+        if (charIdx > 0) {
+          timeout = setTimeout(() => setCharIdx((prev) => prev - 1), 50);
+        } else {
+          setDeleting(false);
+          setWordIdx((prev) => (prev + 1) % WORD_LIST.length);
+        }
+      }
+    };
+
+    handleTick();
+
     return () => clearTimeout(timeout);
-  }, [charIdx, deleting, wordIdx]);
+  }, [charIdx, deleting, wordIdx, menuOpen]);
 
   // Sync typeText
   useEffect(() => {

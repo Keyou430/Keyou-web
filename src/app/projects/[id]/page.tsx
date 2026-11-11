@@ -5,15 +5,15 @@ import Badge from '@/components/Badge';
 import Link from 'next/link';
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
 export async function generateStaticParams() {
   return projects.map((p) => ({ id: p.id }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+export function generateMetadata({ params }: Props): Metadata {
+  const { id } = params;
   const project = projects.find((p) => p.id === id);
   if (!project) return {};
   return {
@@ -28,8 +28,8 @@ const STATUS_MAP: Record<string, { label: string; color: string }> = {
   planned: { label: '计划中', color: 'text-blue-400 border-blue-400/15 bg-blue-400/[0.06]' },
 };
 
-export default async function ProjectDetail({ params }: Props) {
-  const { id } = await params;
+export default function ProjectDetail({ params }: Props) {
+  const { id } = params;
   const project = projects.find((p) => p.id === id);
 
   if (!project) notFound();
